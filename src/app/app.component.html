@@ -1,0 +1,80 @@
+<div class="formularioRegistro">
+    <h2>Crear Inventario</h2>
+    <form [formGroup]="mercanciaForm" (ngSubmit)="guardar()">
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" formControlName="nombre" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label>Producto</label>
+            <input type="text" formControlName="porducto" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label>Cantidad</label>
+            <input type="number" min="1" formControlName="cantidad" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label>Fecha Ingreso</label>
+            <input type="date" formControlName="fechaIngreso" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label>Cargo</label>
+            <select name="cargo" id="cargo" formControlName="cargo" class="form-control">
+                <option [ngValue]="item" *ngFor="let item of cargos">{{item.nombre}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Usuario Creacion</label>
+            <select name="usuarioCreacion" id="usuarioCreacion" formControlName="usuarioCreacion" class="form-control">
+                <option [ngValue]="item" *ngFor="let item of usuarios">{{item.nombre}}</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="mercanciaForm.invalid">Guardar</button>
+
+    </form>
+</div>
+
+
+<div class="listaInventario">
+    <h2>Lista Inventario</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Fecha Ingreso</th>
+                <th>Usuario Creacion</th>
+                <th>Opciones</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let item of mercancias">
+                <th>{{item.id}}</th>
+                <td>{{item.nombre}}</td>
+                <td>{{item.porducto}}</td>
+                <td>{{item.cantidad}}</td>
+                <td>{{item.fechaIngreso}}</td>
+                <td>{{item.usuarioCreacion.nombre}}</td>
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="editar(item)">Editar</button>
+                    <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+<router-outlet></router-outlet>
